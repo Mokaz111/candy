@@ -5,3 +5,38 @@ package v1
 import (
 	"github.com/cloudwego/hertz/pkg/app"
 )
+
+func rootMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _v1Mw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _clustersMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _createclusterMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _updateclusterMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _deleteclusterMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}
+
+func _getclustersMw() []app.HandlerFunc {
+	// your code...
+	return nil
+}

@@ -3,9 +3,6 @@ syntax = "proto3";
 package v1;
 
 import "api.proto";
-import "google/api/annotations.proto";
-import "google/protobuf/timestamp.proto";
-
 
 option go_package = "github.com/mokaz111/candy-server/api/v1;v1";
 
@@ -13,22 +10,22 @@ option go_package = "github.com/mokaz111/candy-server/api/v1;v1";
 service ClusterService {
   // CreateCluster 创建集群
   rpc CreateCluster (CreateClusterRequest) returns (CreateClusterResponse) {
-    option api.post = "/v1/clusters";
+    option (api.post) = "/v1/clusters";
   }
 
   // GetClusters 获取集群列表
   rpc GetClusters (GetClustersRequest) returns (GetClustersResponse) {
-    option api.get =  "/v1/clusters";
+    option (api.get) =  "/v1/clusters";
   }
 
   // UpdateCluster 更新集群
   rpc UpdateCluster (UpdateClusterRequest) returns (UpdateClusterResponse) {
-    option api.put = "/v1/clusters/{id}";
+    option (api.put) = "/v1/clusters/{id}";
   }
 
   // DeleteCluster 删除集群
   rpc DeleteCluster (DeleteClusterRequest) returns (DeleteClusterResponse) {
-    option api.delete = "/v1/clusters/{id}";
+    option (api.delete) = "/v1/clusters/{id}";
   }
 }
 
@@ -43,8 +40,6 @@ message CreateClusterResponse {
   string name = 2;
   string api_server_url = 3;
   string auth_token = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
 }
 
 message GetClustersRequest {}
@@ -58,8 +53,6 @@ message Cluster {
   string name = 2;
   string api_server_url = 3;
   string auth_token = 4;
-  google.protobuf.Timestamp created_at = 5;
-  google.protobuf.Timestamp updated_at = 6;
 }
 
 message UpdateClusterRequest {

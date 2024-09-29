@@ -16,4 +16,13 @@ import (
 // Register register routes based on the IDL 'api.${HTTP Method}' annotation.
 func Register(r *server.Hertz) {
 
+	root := r.Group("/", rootMw()...)
+	{
+		_v1 := root.Group("/v1", _v1Mw()...)
+		_v1.POST("/clusters", append(_createclusterMw(), v1.CreateCluster)...)
+		_clusters := _v1.Group("/clusters", _clustersMw()...)
+		_clusters.PUT("/{id}", append(_updateclusterMw(), v1.UpdateCluster)...)
+		_clusters.DELETE("/{id}", append(_deleteclusterMw(), v1.DeleteCluster)...)
+		_v1.GET("/clusters", append(_getclustersMw(), v1.GetClusters)...)
+	}
 }

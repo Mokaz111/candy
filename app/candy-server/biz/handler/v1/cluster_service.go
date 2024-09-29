@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/mokaz111/candy-server/biz/dal/mongo"
+	"github.com/mokaz111/candy-server/biz/service"
 	v1 "github.com/mokaz111/candy-server/hertz_gen/api/v1"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -107,4 +108,84 @@ func (s *ClusterService) DeleteCluster(ctx context.Context, req *v1.DeleteCluste
 	}
 
 	return &v1.DeleteClusterResponse{}, nil
+}
+
+// CreateCluster .
+// @router /v1/clusters [POST]
+func CreateCluster(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req v1.CreateClusterRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	resp, err := service.NewCreateClusterService(ctx, c).Run(&req)
+
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+}
+
+// GetClusters .
+// @router /v1/clusters [GET]
+func GetClusters(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req v1.GetClustersRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	resp, err := service.NewGetClustersService(ctx, c).Run(&req)
+
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+}
+
+// UpdateCluster .
+// @router /v1/clusters/{id} [PUT]
+func UpdateCluster(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req v1.UpdateClusterRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	resp, err := service.NewUpdateClusterService(ctx, c).Run(&req)
+
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
+}
+
+// DeleteCluster .
+// @router /v1/clusters/{id} [DELETE]
+func DeleteCluster(ctx context.Context, c *app.RequestContext) {
+	var err error
+	var req v1.DeleteClusterRequest
+	err = c.BindAndValidate(&req)
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+
+	resp, err := service.NewDeleteClusterService(ctx, c).Run(&req)
+
+	if err != nil {
+		utils.SendErrResponse(ctx, c, consts.StatusOK, err)
+		return
+	}
+	utils.SendSuccessResponse(ctx, c, consts.StatusOK, resp)
 }

@@ -2,8 +2,10 @@ syntax = "proto3";
 
 package v1;
 
+import "api.proto";
 import "google/api/annotations.proto";
 import "google/protobuf/timestamp.proto";
+
 
 option go_package = "github.com/mokaz111/candy-server/api/v1;v1";
 
@@ -11,32 +13,22 @@ option go_package = "github.com/mokaz111/candy-server/api/v1;v1";
 service ClusterService {
   // CreateCluster 创建集群
   rpc CreateCluster (CreateClusterRequest) returns (CreateClusterResponse) {
-    option (google.api.http) = {
-      post: "/v1/clusters"
-      body: "*"
-    };
+    option api.post = "/v1/clusters";
   }
 
   // GetClusters 获取集群列表
   rpc GetClusters (GetClustersRequest) returns (GetClustersResponse) {
-    option (google.api.http) = {
-      get: "/v1/clusters"
-    };
+    option api.get =  "/v1/clusters";
   }
 
   // UpdateCluster 更新集群
   rpc UpdateCluster (UpdateClusterRequest) returns (UpdateClusterResponse) {
-    option (google.api.http) = {
-      put: "/v1/clusters/{id}"
-      body: "*"
-    };
+    option api.put = "/v1/clusters/{id}";
   }
 
   // DeleteCluster 删除集群
   rpc DeleteCluster (DeleteClusterRequest) returns (DeleteClusterResponse) {
-    option (google.api.http) = {
-      delete: "/v1/clusters/{id}"
-    };
+    option api.delete = "/v1/clusters/{id}";
   }
 }
 

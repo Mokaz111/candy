@@ -1,0 +1,86 @@
+syntax = "proto3";
+
+package v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/mokaz111/candy-server/api/v1;v1";
+
+// ClusterService 定义了集群管理的服务
+service ClusterService {
+  // CreateCluster 创建集群
+  rpc CreateCluster (CreateClusterRequest) returns (CreateClusterResponse) {
+    option (google.api.http) = {
+      post: "/v1/clusters"
+      body: "*"
+    };
+  }
+
+  // GetClusters 获取集群列表
+  rpc GetClusters (GetClustersRequest) returns (GetClustersResponse) {
+    option (google.api.http) = {
+      get: "/v1/clusters"
+    };
+  }
+
+  // UpdateCluster 更新集群
+  rpc UpdateCluster (UpdateClusterRequest) returns (UpdateClusterResponse) {
+    option (google.api.http) = {
+      put: "/v1/clusters/{id}"
+      body: "*"
+    };
+  }
+
+  // DeleteCluster 删除集群
+  rpc DeleteCluster (DeleteClusterRequest) returns (DeleteClusterResponse) {
+    option (google.api.http) = {
+      delete: "/v1/clusters/{id}"
+    };
+  }
+}
+
+message CreateClusterRequest {
+  string name = 1;
+  string api_server_url = 2;
+  string auth_token = 3;
+}
+
+message CreateClusterResponse {
+  string id = 1;
+  string name = 2;
+  string api_server_url = 3;
+  string auth_token = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message GetClustersRequest {}
+
+message GetClustersResponse {
+  repeated Cluster clusters = 1;
+}
+
+message Cluster {
+  string id = 1;
+  string name = 2;
+  string api_server_url = 3;
+  string auth_token = 4;
+  google.protobuf.Timestamp created_at = 5;
+  google.protobuf.Timestamp updated_at = 6;
+}
+
+message UpdateClusterRequest {
+  string id = 1;
+  string name = 2;
+  string api_server_url = 3;
+  string auth_token = 4;
+}
+
+message UpdateClusterResponse {}
+
+message DeleteClusterRequest {
+  string id = 1;
+}
+
+message DeleteClusterResponse {}
